@@ -1,0 +1,11 @@
+{
+  "name": "eashigaev/ddd-php-foodanic",
+  "type": "draft",
+  "description": "Domain-driven design and architectural patterns in modelling domain of the food loyalty program.",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Foodanic\\": "./"
+    }
+  }
+}
