@@ -19,7 +19,7 @@ use Foodanic\LoyaltyContext\Domain\Redemption\Redemption;
 use Foodanic\LoyaltyContext\Domain\Redemption\RedemptionRepositoryInterface;
 use Foodanic\LoyaltyContext\Domain\Redemption\RedemptionVoided;
 
-/** Each method inside a transaction */
+/** Each method is wrapped in a transaction. Optimistic locking on aggregate save */
 readonly class ApplicationService
 {
     public function __construct(

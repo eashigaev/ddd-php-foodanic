@@ -11,7 +11,7 @@ class Accrual
 
     public string $id;
     public string $accountId;
-    public string $paymentId;
+    public string $paymentId;   //unique
     public float $points;
     public DateTime $momentAt;
     public ?DateTime $voidedAt;

@@ -37,30 +37,31 @@ class Account
     public function redeem(float $points): array
     {
         $result = [];
-        foreach ($this->orderedLines() as $line) {
+        $lines = $this->orderedLines();
+        foreach ($lines as &$line) {
             if ($points === 0) break;
             if ($line['points'] === 0) continue;
             if ($line['points'] <= $points) {
+                $result[$line['accrualId']] = $line['points'];
                 $points -= $line['points'];
                 $line['points'] = 0;
-                $result[$line['accrualId']] = $line;
                 continue;
             }
+            $result[$line['accrualId']] = $points;
             $line['points'] -= $points;
             $points = 0;
-            $result[$line['accrualId']] = $line;
         }
         assert($points === 0);
 
+        $this->lines = $lines;
         return $result;
     }
 
-    public function refund(array $refundedLines): void
+    public function refund(array $lines): void
     {
-        foreach ($refundedLines as $refundedLine) {
-            if (!array_key_exists($refundedLine['accrualId'], $this->lines)) continue;
-
-            $this->lines[$refundedLine['accrualId']]['points'] += $refundedLine['points'];
+        foreach ($lines as $accrualId => $points) {
+            if (!array_key_exists($accrualId, $this->lines)) continue;
+            $this->lines[$accrualId]['points'] += $points;
         }
     }
 
